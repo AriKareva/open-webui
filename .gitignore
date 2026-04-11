@@ -310,3 +310,11 @@ dist
 cypress/videos
 cypress/screenshots
 .vscode/settings.json
+
+
+# Модели
+*.gguf
+*.safetensors
+*.bin
+models/
+data/
