@@ -324,3 +324,4 @@ class Pipe:
                 yield footer
         except Exception as e:
             yield f"Ошибка: {str(e)}"
+
