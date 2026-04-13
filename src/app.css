@@ -33,6 +33,20 @@
 /* --app-text-scale is updated via the UI Scale slider (Interface.svelte) */
 :root {
 	--app-text-scale: 1;
+	--black: #0E0E0F;
+	--softblack: #1A1A1C;
+	--gray900: #2A2A2E;
+	--gray800: #3A3A40;
+	--gray700: #4A4A52;
+	--gray600: #5C5C66;
+	--gray500: #7A7A85;
+	--gray400: #A1A1AA;
+	--gray300: #C7C7CE;
+	--gray200: #CFD0D5;
+	--gray100: #E5E5EA;
+	--gray50: #F7F7FD;
+	--softwhite: #F4F4F4;
+	--white: #FFFFFF;
 }
 
 html {
