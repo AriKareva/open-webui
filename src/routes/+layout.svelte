@@ -1031,7 +1031,7 @@
 
 <svelte:head>
 	<title>{$WEBUI_NAME}</title>
-	<link crossorigin="anonymous" rel="icon" href="{WEBUI_BASE_URL}/hecate-mark.svg" />
+	<link crossorigin="anonymous" rel="icon" href="{WEBUI_BASE_URL}/hecate-white.svg" />
 
 	<meta name="apple-mobile-web-app-title" content={$WEBUI_NAME} />
 	<meta name="description" content={$WEBUI_NAME} />

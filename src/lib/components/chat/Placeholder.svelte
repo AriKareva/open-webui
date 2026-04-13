@@ -57,12 +57,18 @@
 
 	let models = [];
 	let selectedModelIdx = 0;
+	let brandLogoSrc = '/hecate-white.svg';
 
 	$: if (selectedModels.length > 0) {
 		selectedModelIdx = models.length - 1;
 	}
 
 	$: models = selectedModels.map((id) => $_models.find((m) => m.id === id));
+	$: if (typeof document !== 'undefined') {
+		brandLogoSrc = document.documentElement.classList.contains('dark')
+			? '/hecate-black.svg'
+			: '/hecate-white.svg';
+	}
 </script>
 
 <div class="hecate-placeholder m-auto w-full max-w-6xl px-2 @2xl:px-20 translate-y-6 py-24 text-center">
@@ -98,7 +104,7 @@
 				/>
 			{:else}
 				<div class="mx-auto flex max-w-xl flex-col items-center justify-center px-5" in:fade={{ duration: 100 }}>
-					<img src="/hecate-mark.svg" alt="HECATE" class="hecate-placeholder-logo mb-5 size-20" />
+					<img src={brandLogoSrc} alt="HECATE" class="hecate-placeholder-logo mb-5 size-20" />
 					<div class="hecate-placeholder-title text-5xl font-primary tracking-[0.12em] text-[var(--softblack)]">
 						{$WEBUI_NAME}
 					</div>

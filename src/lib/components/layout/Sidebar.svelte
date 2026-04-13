@@ -3,6 +3,7 @@
 	import { v4 as uuidv4 } from 'uuid';
 
 	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
 	import {
 		user,
 		chats,
@@ -84,6 +85,7 @@
 	let showCreateFolderModal = false;
 
 	let pinnedModels = [];
+	let brandLogoSrc = '/hecate-white.svg';
 
 	let showPinnedModels = false;
 	let showChannels = false;
@@ -420,6 +422,10 @@
 	};
 
 	onMount(() => {
+		brandLogoSrc = document.documentElement.classList.contains('dark')
+			? '/hecate-black.svg'
+			: '/hecate-white.svg';
+
 		try {
 			const width = Number(localStorage.getItem('sidebarWidth'));
 			if (!Number.isNaN(width) && width >= MIN_WIDTH && width <= MAX_WIDTH) {
@@ -712,7 +718,7 @@
 						aria-label={$showSidebar ? $i18n.t('Close Sidebar') : $i18n.t('Open Sidebar')}
 					>
 						<div class=" self-center flex items-center justify-center size-9">
-							<img src="/hecate-mark.svg" class="sidebar-new-chat-icon size-6 rounded-full group-hover:hidden" alt="" />
+							<img src={brandLogoSrc} class="sidebar-new-chat-icon size-6 rounded-full group-hover:hidden" alt="" />
 
 							<Sidebar className="size-5 hidden group-hover:flex" />
 						</div>
@@ -866,7 +872,7 @@
 					draggable="false"
 					on:click={newChatHandler}
 				>
-					<img crossorigin="anonymous" src="/hecate-mark.svg" class="sidebar-new-chat-icon size-6 rounded-full" alt="" />
+					<img crossorigin="anonymous" src={brandLogoSrc} class="sidebar-new-chat-icon size-6 rounded-full" alt="" />
 				</a>
 
 				<a href="/" class="flex flex-1 px-1.5" on:click={newChatHandler}>
@@ -922,6 +928,7 @@
 							draggable="false"
 							on:click={newChatHandler}
 							aria-label={$i18n.t('New Chat')}
+							aria-current={$page.url.pathname === '/' && !$chatId ? 'page' : null}
 						>
 							<div class="self-center">
 								<PencilSquare className=" size-4.5" strokeWidth="2" />
@@ -944,6 +951,7 @@
 							}}
 							draggable="false"
 							aria-label={$i18n.t('Search')}
+							aria-pressed={$showSearch}
 						>
 							<div class="self-center">
 								<Search strokeWidth="2" className="size-4.5" />
@@ -965,6 +973,7 @@
 								on:click={itemClickHandler}
 								draggable="false"
 								aria-label={$i18n.t('Notes')}
+								aria-current={$page.url.pathname.startsWith('/notes') ? 'page' : null}
 							>
 								<div class="self-center">
 									<Note className="size-4.5" strokeWidth="2" />

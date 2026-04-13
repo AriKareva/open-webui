@@ -2,21 +2,21 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/hecate-mark.svg" crossorigin="use-credentials" />
+		<link rel="icon" type="image/svg+xml" href="/hecate-white.svg" crossorigin="use-credentials" />
 		<link
 			rel="icon"
 			type="image/svg+xml"
-			href="/hecate-mark.svg"
+			href="/hecate-white.svg"
 			sizes="96x96"
 			crossorigin="use-credentials"
 		/>
 		<link
 			rel="icon"
 			type="image/svg+xml"
-			href="/hecate-mark.svg"
+			href="/hecate-white.svg"
 			crossorigin="use-credentials"
 		/>
-		<link rel="shortcut icon" href="/hecate-mark.svg" crossorigin="use-credentials" />
+		<link rel="shortcut icon" href="/hecate-white.svg" crossorigin="use-credentials" />
 		<link
 			rel="apple-touch-icon"
 			sizes="180x180"
@@ -44,7 +44,11 @@
 			// On page load or when changing themes, best to add inline in `head` to avoid FOUC
 			(() => {
 				const metaThemeColorTag = document.querySelector('meta[name="theme-color"]');
+				const faviconLinks = Array.from(
+					document.querySelectorAll('link[rel="icon"], link[rel="shortcut icon"]')
+				);
 				const prefersDarkTheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
+				const getThemeLogo = (isDarkMode) => (isDarkMode ? '/hecate-black.svg' : '/hecate-white.svg');
 
 				if (!localStorage?.theme) {
 					localStorage.theme = 'system';
@@ -85,12 +89,15 @@
 					}
 				});
 				const isDarkMode = document.documentElement.classList.contains('dark');
+				const themeLogo = getThemeLogo(isDarkMode);
+
+				faviconLinks.forEach((link) => link.setAttribute('href', themeLogo));
 
 				const logo = document.createElement('img');
 				logo.id = 'logo';
 				logo.style =
 					'position: absolute; width: auto; height: 6rem; top: 44%; left: 50%; transform: translateX(-50%); display:block;';
-				logo.src = '/hecate-mark.svg';
+				logo.src = themeLogo;
 
 				document.addEventListener('DOMContentLoaded', function () {
 					const splash = document.getElementById('splash-screen');

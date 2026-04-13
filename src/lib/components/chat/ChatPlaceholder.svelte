@@ -22,6 +22,7 @@
 
 	let mounted = false;
 	let selectedModelIdx = 0;
+	let brandLogoSrc = '/hecate-white.svg';
 
 	$: if (modelIds.length > 0) {
 		selectedModelIdx = models.length - 1;
@@ -30,6 +31,9 @@
 	$: models = modelIds.map((id) => $_models.find((m) => m.id === id));
 
 	onMount(() => {
+		brandLogoSrc = document.documentElement.classList.contains('dark')
+			? '/hecate-black.svg'
+			: '/hecate-white.svg';
 		mounted = true;
 	});
 </script>
@@ -58,7 +62,7 @@
 								alt="logo"
 								draggable="false"
 								on:error={(e) => {
-									e.currentTarget.src = '/favicon.png';
+									e.currentTarget.src = brandLogoSrc;
 								}}
 							/>
 						</Tooltip>

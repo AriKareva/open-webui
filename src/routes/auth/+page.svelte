@@ -147,7 +147,9 @@
 		const logo = document.getElementById('logo');
 
 		if (logo) {
-			logo.src = '/hecate-mark.svg';
+			logo.src = document.documentElement.classList.contains('dark')
+				? '/hecate-black.svg'
+				: '/hecate-white.svg';
 			logo.style.filter = '';
 		}
 	}
@@ -228,7 +230,7 @@
 									<img
 										id="logo"
 										crossorigin="anonymous"
-										src="/hecate-mark.svg"
+										src="/hecate-white.svg"
 										class="size-24 rounded-full"
 										alt="{$WEBUI_NAME} logo"
 									/>
@@ -580,7 +582,7 @@
 						<img
 							id="logo"
 							crossorigin="anonymous"
-							src="/hecate-mark.svg"
+							src="/hecate-white.svg"
 							class=" w-6 rounded-full"
 							alt=""
 						/>

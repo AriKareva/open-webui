@@ -207,6 +207,21 @@ body {
 		background: rgba(14, 14, 15, 0.06) !important;
 	}
 
+	.hecate-app #sidebar-new-chat-button[aria-current='page'],
+	.hecate-app #sidebar-notes-button[aria-current='page'],
+	.hecate-app #sidebar-search-button[aria-pressed='true'],
+	.hecate-app #sidebar-folder-button:has(button[aria-expanded='true']) {
+		background: var(--black) !important;
+		color: var(--softwhite) !important;
+	}
+
+	.hecate-app #sidebar-new-chat-button[aria-current='page'] *,
+	.hecate-app #sidebar-notes-button[aria-current='page'] *,
+	.hecate-app #sidebar-search-button[aria-pressed='true'] *,
+	.hecate-app #sidebar-folder-button:has(button[aria-expanded='true']) * {
+		color: var(--softwhite) !important;
+	}
+
 	.hecate-app #sidebar-chat-item {
 		border-radius: 16px;
 		color: var(--softblack);
@@ -214,12 +229,21 @@ body {
 
 	.hecate-app #sidebar-chat-item.selected,
 	.hecate-app #sidebar-chat-item[class*='bg-gray-100'] {
-		background: rgba(14, 14, 15, 0.08) !important;
+		background: var(--black) !important;
+		color: var(--softwhite) !important;
 	}
 
-	.hecate-app #sidebar-chat-item:not(.selected):hover,
-	.hecate-app #sidebar-chat-item-menu:hover {
+	.hecate-app #sidebar-chat-item.selected *,
+	.hecate-app #sidebar-chat-item[class*='bg-gray-100'] * {
+		color: var(--softwhite) !important;
+	}
+
+	.hecate-app #sidebar-chat-item:not(.selected):hover {
 		background: rgba(14, 14, 15, 0.05) !important;
+	}
+
+	.hecate-app #sidebar-chat-item-menu {
+		background: linear-gradient(to left, transparent 80%, transparent) !important;
 	}
 
 	.hecate-app .hecate-navbar {
@@ -256,7 +280,7 @@ body {
 	}
 
 	.hecate-app .hecate-placeholder-logo {
-		filter: drop-shadow(0 12px 24px rgba(14, 14, 15, 0.08));
+		filter: none;
 	}
 
 	.hecate-app .hecate-placeholder-title {
