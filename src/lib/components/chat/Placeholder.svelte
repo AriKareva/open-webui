@@ -1,27 +1,19 @@
 <script lang="ts">
-	import { toast } from 'svelte-sonner';
-	import { marked } from 'marked';
-
-	import { onMount, getContext, tick, createEventDispatcher } from 'svelte';
-	import { blur, fade } from 'svelte/transition';
+	import { getContext, createEventDispatcher } from 'svelte';
+	import { fade } from 'svelte/transition';
 
 	const dispatch = createEventDispatcher();
 
 	import { getChatList } from '$lib/apis/chats';
-	import { updateFolderById } from '$lib/apis/folders';
-
 	import {
 		config,
-		user,
 		models as _models,
 		temporaryChatEnabled,
 		selectedFolder,
 		chats,
-		currentChatPage
+		currentChatPage,
+		WEBUI_NAME
 	} from '$lib/stores';
-	import { sanitizeResponseContent, extractCurlyBraceWords } from '$lib/utils';
-	import { WEBUI_API_BASE_URL, WEBUI_BASE_URL } from '$lib/constants';
-
 	import Suggestions from './Suggestions.svelte';
 	import Tooltip from '$lib/components/common/Tooltip.svelte';
 	import EyeSlash from '$lib/components/icons/EyeSlash.svelte';
@@ -73,7 +65,7 @@
 	$: models = selectedModels.map((id) => $_models.find((m) => m.id === id));
 </script>
 
-<div class="m-auto w-full max-w-6xl px-2 @2xl:px-20 translate-y-6 py-24 text-center">
+<div class="hecate-placeholder m-auto w-full max-w-6xl px-2 @2xl:px-20 translate-y-6 py-24 text-center">
 	{#if $temporaryChatEnabled}
 		<Tooltip
 			content={$i18n.t("This chat won't appear in history and your messages will not be saved.")}
@@ -105,100 +97,13 @@
 					}}
 				/>
 			{:else}
-				<div class="flex flex-row justify-center gap-3 @sm:gap-3.5 w-fit px-5 max-w-xl">
-					<div class="flex shrink-0 justify-center">
-						<div class="flex -space-x-4 mb-0.5" in:fade={{ duration: 100 }}>
-							{#each models as model, modelIdx}
-								<Tooltip
-									content={(models[modelIdx]?.info?.meta?.tags ?? [])
-										.map((tag) => tag.name.toUpperCase())
-										.join(', ')}
-									placement="top"
-								>
-									<button
-										aria-hidden={models.length <= 1}
-										aria-label={$i18n.t('Get information on {{name}} in the UI', {
-											name: models[modelIdx]?.name
-										})}
-										on:click={() => {
-											selectedModelIdx = modelIdx;
-										}}
-									>
-										<img
-											src={`${WEBUI_API_BASE_URL}/models/model/profile/image?id=${model?.id}&lang=${$i18n.language}`}
-											class=" size-9 @sm:size-10 rounded-full border-[1px] border-gray-100 dark:border-none"
-											aria-hidden="true"
-											draggable="false"
-											on:error={(e) => {
-												e.currentTarget.src = '/favicon.png';
-											}}
-										/>
-									</button>
-								</Tooltip>
-							{/each}
-						</div>
+				<div class="mx-auto flex max-w-xl flex-col items-center justify-center px-5" in:fade={{ duration: 100 }}>
+					<img src="/hecate-mark.svg" alt="HECATE" class="hecate-placeholder-logo mb-5 size-20" />
+					<div class="hecate-placeholder-title text-5xl font-primary tracking-[0.12em] text-[var(--softblack)]">
+						{$WEBUI_NAME}
 					</div>
-
-					<div
-						class=" text-3xl @sm:text-3xl line-clamp-1 flex items-center"
-						in:fade={{ duration: 100 }}
-					>
-						{#if models[selectedModelIdx]?.name}
-							<Tooltip
-								content={models[selectedModelIdx]?.name}
-								placement="top"
-								className=" flex items-center "
-							>
-								<span class="line-clamp-1">
-									{models[selectedModelIdx]?.name}
-								</span>
-							</Tooltip>
-						{:else}
-							{$i18n.t('Hello, {{name}}', { name: $user?.name })}
-						{/if}
-					</div>
-				</div>
-
-				<div class="flex mt-1 mb-2">
-					<div in:fade={{ duration: 100, delay: 50 }}>
-						{#if models[selectedModelIdx]?.info?.meta?.description ?? null}
-							<Tooltip
-								className=" w-fit"
-								content={marked.parse(
-									sanitizeResponseContent(
-										models[selectedModelIdx]?.info?.meta?.description ?? ''
-									).replaceAll('\n', '<br>')
-								)}
-								placement="top"
-							>
-								<div
-									class="mt-0.5 px-2 text-sm font-normal text-gray-500 dark:text-gray-400 line-clamp-2 max-w-xl markdown"
-								>
-									{@html marked.parse(
-										sanitizeResponseContent(
-											models[selectedModelIdx]?.info?.meta?.description ?? ''
-										).replaceAll('\n', '<br>')
-									)}
-								</div>
-							</Tooltip>
-
-							{#if models[selectedModelIdx]?.info?.meta?.user}
-								<div class="mt-0.5 text-sm font-normal text-gray-400 dark:text-gray-500">
-									By
-									{#if models[selectedModelIdx]?.info?.meta?.user.community}
-										<a
-											href="https://openwebui.com/m/{models[selectedModelIdx]?.info?.meta?.user
-												.username}"
-											>{models[selectedModelIdx]?.info?.meta?.user.name
-												? models[selectedModelIdx]?.info?.meta?.user.name
-												: `@${models[selectedModelIdx]?.info?.meta?.user.username}`}</a
-										>
-									{:else}
-										{models[selectedModelIdx]?.info?.meta?.user.name}
-									{/if}
-								</div>
-							{/if}
-						{/if}
+					<div class="mt-2 text-sm font-medium text-[var(--gray600)]">
+						Единое пространство для любой задачи
 					</div>
 				</div>
 			{/if}

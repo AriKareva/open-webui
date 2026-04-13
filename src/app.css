@@ -140,6 +140,199 @@ textarea::placeholder {
 	-webkit-app-region: drag;
 }
 
+body {
+	background:
+		radial-gradient(circle at top left, rgba(255, 255, 255, 0.95), rgba(244, 244, 244, 0.92) 38%, rgba(229, 229, 234, 0.75) 100%),
+		var(--softwhite);
+	color: var(--softblack);
+}
+
+@media (min-width: 768px) {
+	.hecate-app {
+		background:
+			radial-gradient(circle at top left, rgba(255, 255, 255, 0.98), rgba(244, 244, 244, 0.96) 35%, rgba(229, 229, 234, 0.8) 100%),
+			var(--softwhite);
+	}
+
+	.hecate-app .hecate-app-shell {
+		background: transparent !important;
+		color: var(--softblack);
+	}
+
+	.hecate-app #sidebar,
+	.hecate-app .hecate-sidebar-shell {
+		background: transparent !important;
+		border-color: rgba(122, 122, 133, 0.15) !important;
+	}
+
+	.hecate-app .hecate-sidebar,
+	.hecate-app .hecate-sidebar-rail {
+		background: rgba(255, 255, 255, 0.52);
+		backdrop-filter: blur(20px);
+		box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+	}
+
+	.hecate-app .hecate-sidebar {
+		border-right: 1px solid rgba(122, 122, 133, 0.16);
+	}
+
+	.hecate-app .hecate-sidebar-header {
+		background: linear-gradient(180deg, rgba(244, 244, 244, 0.95), rgba(244, 244, 244, 0.78) 75%, rgba(244, 244, 244, 0));
+	}
+
+	.hecate-app #sidebar-webui-name {
+		font-family: 'Archivo', 'Vazirmatn', sans-serif;
+		font-size: 1rem;
+		font-weight: 600;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--softblack) !important;
+	}
+
+	.hecate-app #sidebar-new-chat-button,
+	.hecate-app #sidebar-search-button,
+	.hecate-app #sidebar-notes-button,
+	.hecate-app #sidebar-folder-button,
+	.hecate-app .hecate-sidebar a[class*='rounded-2xl'],
+	.hecate-app .hecate-sidebar button[class*='rounded-2xl'] {
+		color: var(--softblack);
+	}
+
+	.hecate-app #sidebar-new-chat-button:hover,
+	.hecate-app #sidebar-folder-button:hover,
+	.hecate-app .hecate-sidebar a:hover,
+	.hecate-app .hecate-sidebar button:hover,
+	.hecate-app .hecate-sidebar-rail a:hover,
+	.hecate-app .hecate-sidebar-rail button:hover {
+		background: rgba(14, 14, 15, 0.06) !important;
+	}
+
+	.hecate-app #sidebar-chat-item {
+		border-radius: 16px;
+		color: var(--softblack);
+	}
+
+	.hecate-app #sidebar-chat-item.selected,
+	.hecate-app #sidebar-chat-item[class*='bg-gray-100'] {
+		background: rgba(14, 14, 15, 0.08) !important;
+	}
+
+	.hecate-app #sidebar-chat-item:not(.selected):hover,
+	.hecate-app #sidebar-chat-item-menu:hover {
+		background: rgba(14, 14, 15, 0.05) !important;
+	}
+
+	.hecate-app .hecate-navbar {
+		padding-top: 0.85rem;
+	}
+
+	.hecate-app .hecate-navbar > div > div {
+		padding-inline: 1rem;
+	}
+
+	.hecate-app [id^='model-selector-'][id$='-button'] > div {
+		min-height: 2.5rem;
+		padding: 0.45rem 0.9rem;
+		border: 1px solid rgba(122, 122, 133, 0.18);
+		border-radius: 14px;
+		background: rgba(255, 255, 255, 0.72);
+		box-shadow: 0 10px 30px rgba(42, 42, 46, 0.08);
+		font-size: 0.9rem;
+		color: var(--softblack);
+		backdrop-filter: blur(16px);
+	}
+
+	.hecate-app #chat-container {
+		position: relative;
+	}
+
+	.hecate-app #chat-pane {
+		background: transparent;
+	}
+
+	.hecate-app .hecate-placeholder {
+		transform: none;
+		padding-top: 6rem;
+	}
+
+	.hecate-app .hecate-placeholder-logo {
+		filter: drop-shadow(0 12px 24px rgba(14, 14, 15, 0.08));
+	}
+
+	.hecate-app .hecate-placeholder-title {
+		font-size: clamp(3rem, 5vw, 4.5rem);
+		line-height: 1;
+	}
+
+	.hecate-app #message-input-container {
+		background: rgba(255, 255, 255, 0.78) !important;
+		border: 1px solid rgba(122, 122, 133, 0.2) !important;
+		box-shadow: 0 16px 40px rgba(42, 42, 46, 0.12) !important;
+		backdrop-filter: blur(20px);
+	}
+
+	.hecate-app #chat-input-container {
+		color: var(--softblack);
+	}
+
+	.hecate-app #chat-input {
+		color: var(--softblack);
+	}
+
+	.hecate-app #chat-input::placeholder {
+		color: var(--gray600);
+	}
+
+	.hecate-app #input-menu-button,
+	.hecate-app #integration-menu-button,
+	.hecate-app #model-valves-button,
+	.hecate-app #voice-input-button,
+	.hecate-app #create-note-button {
+		color: var(--gray700) !important;
+	}
+
+	.hecate-app #input-menu-button:hover,
+	.hecate-app #integration-menu-button:hover,
+	.hecate-app #model-valves-button:hover,
+	.hecate-app #voice-input-button:hover,
+	.hecate-app #create-note-button:hover {
+		background: rgba(14, 14, 15, 0.06) !important;
+		color: var(--softblack) !important;
+	}
+
+	.hecate-app #send-message-button,
+	.hecate-app #generate-message-pair-button {
+		background: var(--black) !important;
+		color: var(--softwhite) !important;
+		box-shadow: 0 10px 20px rgba(14, 14, 15, 0.16);
+	}
+
+	.hecate-app #send-message-button:hover,
+	.hecate-app #generate-message-pair-button:hover {
+		background: var(--softblack) !important;
+	}
+
+	.hecate-app .waterfall {
+		border: 1px solid rgba(122, 122, 133, 0.16);
+		background: rgba(255, 255, 255, 0.62) !important;
+		box-shadow: 0 10px 24px rgba(42, 42, 46, 0.06);
+	}
+
+	.hecate-app .waterfall:hover {
+		background: rgba(255, 255, 255, 0.9) !important;
+		transform: translateY(-1px);
+	}
+
+	.hecate-app [role='dialog'] > div,
+	.hecate-app [data-slot='dropdown-menu-content'],
+	.hecate-app .modal-panel {
+		border: 1px solid rgba(122, 122, 133, 0.18);
+		background: rgba(255, 255, 255, 0.88);
+		box-shadow: 0 20px 50px rgba(42, 42, 46, 0.12);
+		backdrop-filter: blur(18px);
+	}
+}
+
 .drag-region a,
 .drag-region button {
 	-webkit-app-region: no-drag;

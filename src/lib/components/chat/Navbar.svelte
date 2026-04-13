@@ -1,9 +1,6 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
-	import { toast } from 'svelte-sonner';
-
 	import {
-		WEBUI_NAME,
 		banners,
 		chatId,
 		config,
@@ -16,7 +13,6 @@
 		user
 	} from '$lib/stores';
 
-	import { slide } from 'svelte/transition';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 
@@ -25,9 +21,6 @@
 	import Tooltip from '../common/Tooltip.svelte';
 	import Menu from '$lib/components/layout/Navbar/Menu.svelte';
 	import UserMenu from '$lib/components/layout/Sidebar/UserMenu.svelte';
-	import AdjustmentsHorizontal from '../icons/AdjustmentsHorizontal.svelte';
-
-	import PencilSquare from '../icons/PencilSquare.svelte';
 	import Banner from '../common/Banner.svelte';
 	import Sidebar from '../icons/Sidebar.svelte';
 
@@ -73,7 +66,7 @@
 />
 
 <nav
-	class="sticky top-0 z-30 w-full {chat?.id
+	class="hecate-navbar sticky top-0 z-30 w-full {chat?.id
 		? 'pt-0.5 pb-1'
 		: 'pt-1 pb-1'} -mb-12 flex flex-col items-center drag-region"
 >
