@@ -108,7 +108,7 @@ from open_webui.routers.retrieval import (
 
 
 from sqlalchemy.orm import Session
-from open_webui.internal.db import ScopedSession, engine, get_session
+from open_webui.internal.db import ScopedSession, engine, get_db_context, get_session
 
 from open_webui.models.functions import Functions
 from open_webui.models.models import Models
@@ -605,6 +605,45 @@ https://github.com/open-webui/open-webui
 """)
 
 
+
+import json
+from pathlib import Path
+from open_webui.models.functions import Functions, FunctionForm
+
+
+async def ensure_functions_from_json():
+    functions_dir = Path(__file__).parent / "data" / "function_configs"
+    log.info(f"\nFunction configs dir: {functions_dir}\n")
+
+    # if not functions_dir.exists():
+    #     return
+
+    for json_file in functions_dir.glob("*.json"):
+        try:
+            with open(json_file, "r", encoding="utf-8") as f:
+                data = json.load(f)
+
+            with get_db_context() as db:
+                existing = Functions.get_function_by_id(data["id"], db=db)
+                form = FunctionForm(
+                    id=data["id"],
+                    name=data["name"],
+                    meta=data["meta"],
+                    content=data["content"]
+                    # valves=data.get("valves", {}),
+                    # is_active=data.get("is_active", True),
+                    # is_global=data.get("is_global", True),
+                )
+                if existing:
+                    Functions.update_function_by_id(data["id"], form, db=db)
+                    log.info(f"Updated function {data['id']} from {json_file.name}")
+                else:
+                    Functions.insert_new_function(user_id='admin', form_data=form, type=data["type"], db=db)
+                    log.info(f"Inserted function {data['id']} from {json_file.name}")
+        except Exception as e:
+            log.error(f"Failed to process function file {json_file}: {e}")
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Store reference to main event loop for sync->async calls (e.g., embedding generation)
@@ -630,6 +669,7 @@ async def lifespan(app: FastAPI):
     # when the first user lands on the / route.
     log.info('Installing external dependencies of functions and tools...')
     install_tool_and_function_dependencies()
+
 
     app.state.redis = get_redis_connection(
         redis_url=REDIS_URL,
@@ -701,7 +741,7 @@ async def lifespan(app: FastAPI):
 
     # Mark application as ready to accept traffic from a startup perspective.
     app.state.startup_complete = True
-
+    await ensure_functions_from_json()
     yield
 
     if hasattr(app.state, 'redis_task_command_listener'):

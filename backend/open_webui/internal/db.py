@@ -3,6 +3,9 @@ import json
 import logging
 from contextlib import contextmanager
 from typing import Any, Optional
+# import json
+# from pathlib import Path
+# from open_webui.models.functions import Functions, FunctionForm
 
 from open_webui.internal.wrappers import register_connection
 from open_webui.env import (
@@ -179,3 +182,37 @@ def get_db_context(db: Optional[Session] = None):
     else:
         with get_db() as session:
             yield session
+
+
+# async def ensure_functions_from_json():
+#     functions_dir = Path(__file__).parent / "data" / "function_configs"
+#     log.info(f"Function configs dir: {functions_dir}")
+
+#     if not functions_dir.exists():
+#         return
+
+#     for json_file in functions_dir.glob("*.json"):
+#         try:
+#             with open(json_file, "r", encoding="utf-8") as f:
+#                 data = json.load(f)
+
+#             with get_db_context() as db:
+#                 existing = Functions.get_function_by_id(data["id"], db=db)
+#                 form = FunctionForm(
+#                     id=data["id"],
+#                     name=data["name"],
+#                     description=data["description"],
+#                     type=data["type"],
+#                     code=data["code"],
+#                     valves=data.get("valves", {}),
+#                     is_active=data.get("is_active", True),
+#                     is_global=data.get("is_global", True),
+#                 )
+#                 if existing:
+#                     Functions.update_function_by_id(data["id"], form, db=db)
+#                     log.info(f"Updated function {data['id']} from {json_file.name}")
+#                 else:
+#                     Functions.insert_new_function(user_id=None, form=form, db=db)
+#                     log.info(f"Inserted function {data['id']} from {json_file.name}")
+#         except Exception as e:
+#             log.error(f"Failed to process function file {json_file}: {e}")

@@ -48,8 +48,8 @@ class FunctionModel(BaseModel):
     type: str
     content: str
     meta: FunctionMeta
-    is_active: bool = False
-    is_global: bool = False
+    is_active: bool = True
+    is_global: bool = True
     updated_at: int  # timestamp in epoch
     created_at: int  # timestamp in epoch
 
@@ -64,8 +64,8 @@ class FunctionWithValvesModel(BaseModel):
     content: str
     meta: FunctionMeta
     valves: Optional[dict] = None
-    is_active: bool = False
-    is_global: bool = False
+    is_active: bool = True
+    is_global: bool = True
     updated_at: int  # timestamp in epoch
     created_at: int  # timestamp in epoch
 
@@ -229,25 +229,26 @@ class FunctionsTable:
     def get_function_list(self, db: Optional[Session] = None) -> list[FunctionUserResponse]:
         with get_db_context(db) as db:
             functions = db.query(Function).options(defer(Function.content)).order_by(Function.updated_at.desc()).all()
-            user_ids = list(set(func.user_id for func in functions))
+            # user_ids = list(set(func.user_id for func in functions))
 
-            users = Users.get_users_by_user_ids(user_ids, db=db) if user_ids else []
-            users_dict = {user.id: user for user in users}
+            # users = Users.get_users(db=db)['users'] if user_ids else []
+            # users_dict = {user.id: user for user in users}
 
             return [
                 FunctionUserResponse.model_validate(
                     {
-                        **FunctionResponse.model_validate(func).model_dump(),
-                        'user': (
-                            UserResponse(
-                                id=users_dict[func.user_id].id,
-                                name=users_dict[func.user_id].name,
-                                role=users_dict[func.user_id].role,
-                                email=users_dict[func.user_id].email,
-                            ).model_dump()
-                            if func.user_id in users_dict
-                            else None
-                        ),
+                        **FunctionResponse.model_validate(func).model_dump()
+                        # ,
+                        # 'user': (
+                        #     UserResponse(
+                        #         id=users_dict[func.user_id].id,
+                        #         name=users_dict[func.user_id].name,
+                        #         role=users_dict[func.user_id].role,
+                        #         email=users_dict[func.user_id].email,
+                        #     ).model_dump()
+                        #     if func.user_id in users_dict
+                        #     else None
+                        # ),
                     }
                 )
                 for func in functions
