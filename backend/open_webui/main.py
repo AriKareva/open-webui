@@ -612,7 +612,7 @@ from open_webui.models.functions import Functions, FunctionForm
 
 
 async def ensure_functions_from_json():
-    functions_dir = Path(__file__).parent / "data" / "function_configs"
+    functions_dir = Path(__file__).parent / "function_configs"
     log.info(f"\nFunction configs dir: {functions_dir}\n")
 
     # if not functions_dir.exists():
