@@ -118,6 +118,7 @@
 								<button
 									class="hecate-round-button flex cursor-pointer px-2 py-2 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-850 transition"
 									id="temporary-chat-button"
+									aria-pressed={$temporaryChatEnabled}
 									on:click={async () => {
 										if (($settings?.temporaryChatByDefault ?? false) && $temporaryChatEnabled) {
 											// for proper initNewChat handling
@@ -152,6 +153,7 @@
 								<button
 									class="hecate-round-button flex cursor-pointer px-2 py-2 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-850 transition"
 									id="save-temporary-chat-button"
+									aria-pressed={$temporaryChatEnabled}
 									on:click={async () => {
 										onSaveTempChat();
 									}}
@@ -197,6 +199,7 @@
 							<button
 								class="hecate-round-button flex cursor-pointer px-2 py-2 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-850 transition"
 								id="chat-context-menu-button"
+								aria-pressed={showShareChatModal}
 							>
 								<div class=" m-auto self-center">
 									<EllipsisHorizontal className=" size-5" strokeWidth="1.5" />
@@ -209,6 +212,7 @@
 						<Tooltip content={$i18n.t('Controls')}>
 							<button
 								class="hecate-round-button flex cursor-pointer px-2 py-2 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-850 transition"
+								aria-pressed={$showControls}
 								on:click={async () => {
 									await showControls.set(!$showControls);
 								}}

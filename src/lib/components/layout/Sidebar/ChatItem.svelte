@@ -89,6 +89,7 @@
 
 	let showShareChatModal = false;
 	let confirmEdit = false;
+	let showChatMenu = false;
 
 	let chatTitle = title;
 
@@ -542,6 +543,7 @@
 		{:else}
 			<div class="flex self-center z-10 items-end">
 				<ChatMenu
+					bind:show={showChatMenu}
 					chatId={id}
 					cloneChatHandler={() => {
 						cloneChatHandler(id);
@@ -566,6 +568,7 @@
 				>
 					<button
 						aria-label="Chat Menu"
+						aria-pressed={showChatMenu}
 						class="chat-item-menu-button self-center transition m-0"
 						on:click={() => {
 							dispatch('select');

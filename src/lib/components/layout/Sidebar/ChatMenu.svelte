@@ -40,7 +40,7 @@
 
 	export let chatId = '';
 
-	let show = false;
+	export let show = false;
 	let pinned = false;
 
 	let chat = null;
