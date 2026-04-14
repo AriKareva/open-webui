@@ -32,29 +32,19 @@ services:
       - 'ENABLE_SIGNUP=True'
       - 'RAG_EMBEDDING_ENGINE=openai'
       - 'RAG_EMBEDDING_MODEL=bge-m3'
-      - 'OPENAI_API_BASE_URLS=https://api.gpt.mws.ru/v1' # в проде убрать
-      - 'OPENAI_API_KEYS=sk-L6aEhbIZJ1TSbxammZ7a0w' # в проде убрать
-      # - 'ENV=dev' # в проде убрать
+      - 'OPENAI_API_BASE_URLS=' # в проде убрать
+      - 'OPENAI_API_KEYS=' # в проде убрать
+      - 'ENV=dev' # в проде убрать
       # Включить веб-поиск
       - 'ENABLE_RAG_WEB_SEARCH=True'
       # Адрес SearXNG (важно: шаблон <query> обязателен!)
-      - 'SEARXNG_QUERY_URL=http://searxng_data-searxng:8080/search?q=<query>&format=json' 
+      - 'SEARXNG_QUERY_URL=http://searxng:8080/search?q=<query>' 
       # Количество результатов
       - 'RAG_WEB_SEARCH_RESULT_COUNT=5'
       # Язык поиска
       - 'SEARXNG_LANGUAGE=all'
       # Ограничение одновременных запросов (рекомендуется)
       - 'RAG_WEB_SEARCH_CONCURRENT_REQUESTS=1'
-      # Роль по умолчанию - пользватель (без прав адмиина)
-      - 'DEFAULT_USER_ROLE=user'
-      - 'ENABLE_PERSISTENT_CONFIG=False'
-      # Переменные окружения для аудио
-      - 'AUDIO_STT_ENGINE=openai'
-      - 'AUDIO_STT_MODEL=wisper-turbo-local'
-      - 'AUDIO_STT_OPENAI_API_BASE_URL=https://api.gpt.mws.ru/v1' # в проде убрать
-      - 'AUDIO_STT_OPENAI_API_KEY=sk-L6aEhbIZJ1TSbxammZ7a0w' # в проде убрать
-      # Форматы файлов
-      - 'RAG_ALLOWED_FILE_EXTENSIONS=.pdf,.txt,.md,.docx'
     extra_hosts:
       - host.docker.internal:host-gateway
     restart: unless-stopped

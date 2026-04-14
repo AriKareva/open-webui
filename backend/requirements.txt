@@ -160,4 +160,3 @@ opentelemetry-instrumentation-aiohttp-client==0.61b0
 opentelemetry-instrumentation-system-metrics==0.61b0
 
 llvmlite==0.43.0
-dotenv
