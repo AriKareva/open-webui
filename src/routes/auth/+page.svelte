@@ -7,6 +7,7 @@
 	import { onMount, getContext, tick } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
+	import { observeThemeLogo } from '$lib/utils/theme-logo';
 
 	import { getBackendConfig } from '$lib/apis';
 	import {
@@ -141,15 +142,14 @@
 	};
 
 	let onboarding = false;
+	let currentLogoSrc = '/hecate-white.svg';
 
 	async function setLogoImage() {
 		await tick();
 		const logo = document.getElementById('logo');
 
 		if (logo) {
-			logo.src = document.documentElement.classList.contains('dark')
-				? '/hecate-black.svg'
-				: '/hecate-white.svg';
+			logo.src = currentLogoSrc;
 			logo.style.filter = '';
 		}
 	}
@@ -163,6 +163,11 @@
 				localStorage.setItem('redirectPath', redirectPath);
 			}
 		}
+
+		const stopObservingThemeLogo = observeThemeLogo((logoSrc) => {
+			currentLogoSrc = logoSrc;
+			setLogoImage();
+		});
 
 		const error = $page.url.searchParams.get('error');
 		if (error) {
@@ -180,6 +185,10 @@
 		} else {
 			onboarding = $config?.onboarding ?? false;
 		}
+
+		return () => {
+			stopObservingThemeLogo();
+		};
 	});
 </script>
 
@@ -230,7 +239,7 @@
 									<img
 										id="logo"
 										crossorigin="anonymous"
-										src="/hecate-white.svg"
+										src={currentLogoSrc}
 										class="size-24 rounded-full"
 										alt="{$WEBUI_NAME} logo"
 									/>
@@ -582,7 +591,7 @@
 						<img
 							id="logo"
 							crossorigin="anonymous"
-							src="/hecate-white.svg"
+							src={currentLogoSrc}
 							class=" w-6 rounded-full"
 							alt=""
 						/>

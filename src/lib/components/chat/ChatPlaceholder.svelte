@@ -4,6 +4,7 @@
 
 	import { config, user, models as _models, temporaryChatEnabled } from '$lib/stores';
 	import { onMount, getContext } from 'svelte';
+	import { observeThemeLogo } from '$lib/utils/theme-logo';
 
 	import { blur, fade } from 'svelte/transition';
 
@@ -31,10 +32,14 @@
 	$: models = modelIds.map((id) => $_models.find((m) => m.id === id));
 
 	onMount(() => {
-		brandLogoSrc = document.documentElement.classList.contains('dark')
-			? '/hecate-black.svg'
-			: '/hecate-white.svg';
+		const stopObservingThemeLogo = observeThemeLogo((logoSrc) => {
+			brandLogoSrc = logoSrc;
+		});
 		mounted = true;
+
+		return () => {
+			stopObservingThemeLogo();
+		};
 	});
 </script>
 

@@ -31,6 +31,7 @@
 		activeChatIds
 	} from '$lib/stores';
 	import { onMount, getContext, tick, onDestroy } from 'svelte';
+	import { observeThemeLogo } from '$lib/utils/theme-logo';
 
 	const i18n = getContext('i18n');
 
@@ -422,9 +423,9 @@
 	};
 
 	onMount(() => {
-		brandLogoSrc = document.documentElement.classList.contains('dark')
-			? '/hecate-black.svg'
-			: '/hecate-white.svg';
+		const stopObservingThemeLogo = observeThemeLogo((logoSrc) => {
+			brandLogoSrc = logoSrc;
+		});
 
 		try {
 			const width = Number(localStorage.getItem('sidebarWidth'));
@@ -521,6 +522,7 @@
 		socketInstance?.on('events', chatActiveEventHandler);
 
 		return () => {
+			stopObservingThemeLogo();
 			unsubscribers.forEach((unsubscriber) => unsubscriber());
 
 			window.removeEventListener('keydown', onKeyDown);
