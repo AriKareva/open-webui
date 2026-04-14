@@ -215,16 +215,16 @@ class FunctionsTable:
         self, active_only=False, include_valves=False, db: Optional[Session] = None
     ) -> list[FunctionModel | FunctionWithValvesModel]:
         with get_db_context(db) as db:
-            if active_only:
-                functions = db.query(Function).filter_by(is_active=True).all()
+            # if active_only:
+            #     functions = db.query(Function).filter_by(is_active=True).all()
 
-            else:
-                functions = db.query(Function).all()
+            # else:
+            functions = db.query(Function).all()
 
-            if include_valves:
-                return [FunctionWithValvesModel.model_validate(function) for function in functions]
-            else:
-                return [FunctionModel.model_validate(function) for function in functions]
+            # if include_valves:
+            #     return [FunctionWithValvesModel.model_validate(function) for function in functions]
+            # else:
+            return [FunctionModel.model_validate(function) for function in functions]
 
     def get_function_list(self, db: Optional[Session] = None) -> list[FunctionUserResponse]:
         with get_db_context(db) as db:
