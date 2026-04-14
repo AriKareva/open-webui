@@ -116,7 +116,7 @@
 						{#if !chat?.id}
 							<Tooltip content={$i18n.t(`Temporary Chat`)}>
 								<button
-									class="flex cursor-pointer px-2 py-2 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-850 transition"
+									class="hecate-round-button flex cursor-pointer px-2 py-2 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-850 transition"
 									id="temporary-chat-button"
 									on:click={async () => {
 										if (($settings?.temporaryChatByDefault ?? false) && $temporaryChatEnabled) {
@@ -150,7 +150,7 @@
 						{:else if $temporaryChatEnabled}
 							<Tooltip content={$i18n.t(`Save Chat`)}>
 								<button
-									class="flex cursor-pointer px-2 py-2 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-850 transition"
+									class="hecate-round-button flex cursor-pointer px-2 py-2 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-850 transition"
 									id="save-temporary-chat-button"
 									on:click={async () => {
 										onSaveTempChat();
@@ -195,7 +195,7 @@
 							{moveChatHandler}
 						>
 							<button
-								class="flex cursor-pointer px-2 py-2 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-850 transition"
+								class="hecate-round-button flex cursor-pointer px-2 py-2 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-850 transition"
 								id="chat-context-menu-button"
 							>
 								<div class=" m-auto self-center">
@@ -208,7 +208,7 @@
 					{#if $user?.role === 'admin' || ($user?.permissions.chat?.controls ?? true)}
 						<Tooltip content={$i18n.t('Controls')}>
 							<button
-								class=" flex cursor-pointer px-2 py-2 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-850 transition"
+								class="hecate-round-button flex cursor-pointer px-2 py-2 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-850 transition"
 								on:click={async () => {
 									await showControls.set(!$showControls);
 								}}

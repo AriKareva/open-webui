@@ -427,12 +427,16 @@
 				);
 			}}
 		>
-			{#if selectedModel}
-				{selectedModel.label}
-			{:else}
-				{placeholder}
-			{/if}
-			<ChevronDown className=" self-center ml-2 size-3" strokeWidth="2.5" />
+			<div class="hecate-model-trigger-icon">
+				<ChevronDown className="size-4" strokeWidth="2.5" />
+			</div>
+			<div class="hecate-model-trigger-label flex-1 truncate">
+				{#if selectedModel}
+					{selectedModel.label}
+				{:else}
+					{placeholder}
+				{/if}
+			</div>
 		</div>
 	</DropdownMenu.Trigger>
 
@@ -453,12 +457,12 @@
 							{...props}
 							class="{props.class} z-40 {$mobile
 								? `w-full`
-								: `${className}`} max-w-[calc(100vw-1rem)] justify-start rounded-2xl bg-white dark:bg-gray-850 dark:text-white shadow-lg outline-hidden"
+								: `${className}`} hecate-model-dropdown max-w-[calc(100vw-1rem)] justify-start rounded-2xl bg-white dark:bg-gray-850 dark:text-white shadow-lg outline-hidden"
 							transition:flyAndScale
 						>
 							<slot>
 								{#if searchEnabled}
-									<div class="flex items-center gap-2.5 px-4.5 pt-3.5 mb-1.5">
+									<div class="hecate-model-search flex items-center gap-2.5 px-4.5 pt-3.5 pb-3 mb-1.5">
 										<Search className="size-4" strokeWidth="2.5" />
 
 										<input
