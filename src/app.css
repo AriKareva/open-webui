@@ -290,37 +290,59 @@ body {
 		padding-inline: 1rem;
 	}
 
-	.hecate-app [id^='model-selector-'][id$='-button'] > div {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.7rem;
+	.hecate-app .hecate-model-trigger-shell {
+		gap: 0.75rem;
 		min-height: 3rem;
-		padding: 0.35rem 1rem 0.35rem 0.4rem;
+		padding: 0.35rem 1rem 0.35rem 0.35rem;
 		border: 1px solid rgba(122, 122, 133, 0.18);
 		border-radius: 9999px;
 		background: rgba(255, 255, 255, 0.9);
 		box-shadow: 0 10px 30px rgba(42, 42, 46, 0.08);
-		font-size: 1rem;
-		font-weight: 500;
-		color: var(--softblack);
 		backdrop-filter: blur(16px);
+		width: fit-content;
+		max-width: 100%;
 	}
 
 	.hecate-app .hecate-model-trigger-icon {
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		width: 2.3rem;
-		height: 2.3rem;
+		width: 2.15rem;
+		height: 2.15rem;
 		border-radius: 9999px;
+		background: transparent;
+		color: var(--softblack);
+		flex-shrink: 0;
+		transition:
+			background-color 180ms ease,
+			color 180ms ease,
+			transform 180ms ease;
+	}
+
+	.hecate-app .hecate-model-trigger-icon:hover {
+		background: rgba(14, 14, 15, 0.06);
+	}
+
+	.hecate-app .hecate-model-trigger-icon.is-open {
 		background: var(--black);
 		color: var(--softwhite);
-		flex-shrink: 0;
+	}
+
+	.hecate-app .hecate-model-trigger-chevron {
+		transition: transform 180ms ease;
+	}
+
+	.hecate-app .hecate-model-trigger-icon.is-open .hecate-model-trigger-chevron {
+		transform: rotate(180deg);
 	}
 
 	.hecate-app .hecate-model-trigger-label {
 		line-height: 1;
+		font-size: 0.9rem;
+		font-weight: 500;
 		color: var(--gray700);
+		padding-right: 0.1rem;
+		max-width: min(16rem, calc(100vw - 9rem));
 	}
 
 	.hecate-app .hecate-model-dropdown {
@@ -399,6 +421,22 @@ body {
 	.hecate-app #temporary-chat-button:hover,
 	.hecate-app #save-temporary-chat-button:hover,
 	.hecate-app #chat-context-menu-button:hover {
+		background: rgba(14, 14, 15, 0.06) !important;
+		color: var(--softblack) !important;
+	}
+
+	.hecate-app .hecate-round-button[aria-pressed='true'],
+	.hecate-app #temporary-chat-button[aria-pressed='true'],
+	.hecate-app #save-temporary-chat-button[aria-pressed='true'],
+	.hecate-app #chat-context-menu-button[aria-pressed='true'] {
+		background: var(--black) !important;
+		color: var(--softwhite) !important;
+	}
+
+	.hecate-app .hecate-round-button[aria-pressed='true']:hover,
+	.hecate-app #temporary-chat-button[aria-pressed='true']:hover,
+	.hecate-app #save-temporary-chat-button[aria-pressed='true']:hover,
+	.hecate-app #chat-context-menu-button[aria-pressed='true']:hover {
 		background: var(--black) !important;
 		color: var(--softwhite) !important;
 	}

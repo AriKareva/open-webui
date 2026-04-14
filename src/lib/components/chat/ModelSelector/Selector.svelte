@@ -404,41 +404,40 @@
 		}
 	}}
 >
-	<DropdownMenu.Trigger
-		class="relative w-full {($settings?.highContrastMode ?? false)
-			? ''
-			: 'outline-hidden focus:outline-hidden'}"
-		aria-label={selectedModel
-			? $i18n.t('Selected model: {{modelName}}', { modelName: selectedModel.label })
-			: placeholder}
-		id="model-selector-{id}-button"
+	<div
+		class="hecate-model-trigger-shell inline-flex max-w-full items-center"
+		on:mouseenter={async () => {
+			models.set(
+				await getModels(
+					localStorage.token,
+					$config?.features?.enable_direct_connections && ($settings?.directConnections ?? null)
+				)
+			);
+		}}
 	>
-		<div
-			class="flex w-full text-left px-0.5 bg-transparent truncate {triggerClassName} justify-between {($settings?.highContrastMode ??
-			false)
-				? 'dark:placeholder-gray-100 placeholder-gray-800'
-				: 'placeholder-gray-400'}"
-			on:mouseenter={async () => {
-				models.set(
-					await getModels(
-						localStorage.token,
-						$config?.features?.enable_direct_connections && ($settings?.directConnections ?? null)
-					)
-				);
-			}}
+		<DropdownMenu.Trigger
+			class="relative shrink-0 {($settings?.highContrastMode ?? false)
+				? ''
+				: 'outline-hidden focus:outline-hidden'}"
+			aria-label={selectedModel
+				? $i18n.t('Selected model: {{modelName}}', { modelName: selectedModel.label })
+				: placeholder}
+			aria-expanded={show}
+			id="model-selector-{id}-button"
 		>
-			<div class="hecate-model-trigger-icon">
-				<ChevronDown className="size-4" strokeWidth="2.5" />
+			<div class="hecate-model-trigger-icon {show ? 'is-open' : ''}">
+				<ChevronDown className="hecate-model-trigger-chevron size-4" strokeWidth="2.5" />
 			</div>
-			<div class="hecate-model-trigger-label flex-1 truncate">
-				{#if selectedModel}
-					{selectedModel.label}
-				{:else}
-					{placeholder}
-				{/if}
-			</div>
+		</DropdownMenu.Trigger>
+
+		<div class="hecate-model-trigger-label truncate {triggerClassName}">
+			{#if selectedModel}
+				{selectedModel.label}
+			{:else}
+				{placeholder}
+			{/if}
 		</div>
-	</DropdownMenu.Trigger>
+	</div>
 
 	<DropdownMenu.Portal>
 		<DropdownMenu.Content
