@@ -420,7 +420,7 @@
 			id="sidebar-chat-item"
 			data-active={id === $chatId || confirmEdit}
 			data-selected={selected}
-			class="w-full flex justify-between rounded-xl px-[11px] py-[6px] whitespace-nowrap text-ellipsis {id === $chatId ||
+			class="w-full flex justify-between rounded-xl px-[11px] pr-10 py-[6px] whitespace-nowrap text-ellipsis {id === $chatId ||
 			confirmEdit
 				? 'active-chat'
 				: 'idle-chat'}"
@@ -467,7 +467,7 @@
 			</div>
 
 			<!-- Time ago indicator -->
-			{#if createdAt && !mouseOver}
+			{#if createdAt && !mouseOver && !selected && id !== $chatId}
 				<div class="shrink-0 self-center text-[10px] chat-item-time pl-2">
 					{formatTimeAgo(createdAt)}
 				</div>
@@ -486,7 +486,7 @@
 				: 'invisible group-hover:visible from-transparent'}
             absolute {className === 'pr-2'
 			? 'right-[8px]'
-			: 'right-1'} top-[4px] py-1 pr-0.5 mr-1.5 pl-5 bg-linear-to-l from-80%
+			: 'right-1'} top-1/2 -translate-y-1/2 py-1 pr-0.5 mr-1 pl-3 bg-linear-to-l from-80%
 
               to-transparent"
 		on:mouseenter={(e) => {

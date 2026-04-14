@@ -223,7 +223,7 @@ body {
 	.hecate-app #sidebar-chat-item {
 		border-radius: 16px;
 		color: var(--softblack);
-		background: var(--gray50) !important;
+		background: transparent !important;
 	}
 
 	.hecate-app #sidebar-chat-item.active-chat,
@@ -261,7 +261,7 @@ body {
 		width: 1.625rem;
 		height: 1.625rem;
 		border-radius: 9999px;
-		background: rgba(14, 14, 15, 0.06);
+		background: transparent;
 		color: var(--gray700);
 	}
 
