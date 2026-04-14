@@ -2724,9 +2724,7 @@
 					style="background-image: url({$selectedFolder?.meta?.background_image_url})  "
 				/>
 
-				<div
-					class="absolute top-0 left-0 w-full h-full bg-linear-to-t from-white to-white/85 dark:from-gray-900 dark:to-gray-900/90 z-0"
-				/>
+				<div class="hecate-chat-background-overlay absolute top-0 left-0 w-full h-full z-0" />
 			{:else if $settings?.backgroundImageUrl ?? $config?.license_metadata?.background_image_url ?? null}
 				<div
 					class="absolute top-0 left-0 w-full h-full bg-cover bg-center bg-no-repeat"
@@ -2734,9 +2732,7 @@
 						$config?.license_metadata?.background_image_url})  "
 				/>
 
-				<div
-					class="absolute top-0 left-0 w-full h-full bg-linear-to-t from-white to-white/85 dark:from-gray-900 dark:to-gray-900/90 z-0"
-				/>
+				<div class="hecate-chat-background-overlay absolute top-0 left-0 w-full h-full z-0" />
 			{/if}
 
 			<PaneGroup direction="horizontal" class="w-full h-full">
