@@ -2,21 +2,21 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" type="image/png" href="/static/favicon.png" crossorigin="use-credentials" />
+		<link rel="icon" type="image/svg+xml" href="/hecate-white.svg" crossorigin="use-credentials" />
 		<link
 			rel="icon"
-			type="image/png"
-			href="/static/favicon-96x96.png"
+			type="image/svg+xml"
+			href="/hecate-white.svg"
 			sizes="96x96"
 			crossorigin="use-credentials"
 		/>
 		<link
 			rel="icon"
 			type="image/svg+xml"
-			href="/static/favicon.svg"
+			href="/hecate-white.svg"
 			crossorigin="use-credentials"
 		/>
-		<link rel="shortcut icon" href="/static/favicon.ico" crossorigin="use-credentials" />
+		<link rel="shortcut icon" href="/hecate-white.svg" crossorigin="use-credentials" />
 		<link
 			rel="apple-touch-icon"
 			sizes="180x180"
@@ -28,7 +28,7 @@
 			name="viewport"
 			content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, interactive-widget=resizes-content"
 		/>
-		<meta name="theme-color" content="#171717" />
+		<meta name="theme-color" content="#F4F4F4" />
 		<meta name="robots" content="noindex,nofollow" />
 
 		<script src="/static/loader.js" defer crossorigin="use-credentials"></script>
@@ -44,7 +44,11 @@
 			// On page load or when changing themes, best to add inline in `head` to avoid FOUC
 			(() => {
 				const metaThemeColorTag = document.querySelector('meta[name="theme-color"]');
+				const faviconLinks = Array.from(
+					document.querySelectorAll('link[rel="icon"], link[rel="shortcut icon"]')
+				);
 				const prefersDarkTheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
+				const getThemeLogo = (isDarkMode) => (isDarkMode ? '/hecate-black.svg' : '/hecate-white.svg');
 
 				if (!localStorage?.theme) {
 					localStorage.theme = 'system';
@@ -52,7 +56,7 @@
 
 				if (localStorage.theme === 'system') {
 					document.documentElement.classList.add(prefersDarkTheme ? 'dark' : 'light');
-					metaThemeColorTag.setAttribute('content', prefersDarkTheme ? '#171717' : '#ffffff');
+					metaThemeColorTag.setAttribute('content', prefersDarkTheme ? '#171717' : '#F4F4F4');
 				} else if (localStorage.theme === 'oled-dark') {
 					document.documentElement.style.setProperty('--color-gray-800', '#101010');
 					document.documentElement.style.setProperty('--color-gray-850', '#050505');
@@ -62,7 +66,7 @@
 					metaThemeColorTag.setAttribute('content', '#000000');
 				} else if (localStorage.theme === 'light') {
 					document.documentElement.classList.add('light');
-					metaThemeColorTag.setAttribute('content', '#ffffff');
+					metaThemeColorTag.setAttribute('content', '#F4F4F4');
 				} else if (localStorage.theme === 'her') {
 					document.documentElement.classList.add('her');
 					metaThemeColorTag.setAttribute('content', '#983724');
@@ -80,17 +84,20 @@
 						} else {
 							document.documentElement.classList.add('light');
 							document.documentElement.classList.remove('dark');
-							metaThemeColorTag.setAttribute('content', '#ffffff');
+							metaThemeColorTag.setAttribute('content', '#F4F4F4');
 						}
 					}
 				});
 				const isDarkMode = document.documentElement.classList.contains('dark');
+				const themeLogo = getThemeLogo(isDarkMode);
+
+				faviconLinks.forEach((link) => link.setAttribute('href', themeLogo));
 
 				const logo = document.createElement('img');
 				logo.id = 'logo';
 				logo.style =
 					'position: absolute; width: auto; height: 6rem; top: 44%; left: 50%; transform: translateX(-50%); display:block;';
-				logo.src = isDarkMode ? '/static/splash-dark.png' : '/static/splash.png';
+				logo.src = themeLogo;
 
 				document.addEventListener('DOMContentLoaded', function () {
 					const splash = document.getElementById('splash-screen');
@@ -103,7 +110,7 @@
 			})();
 		</script>
 
-		<title>Open WebUI</title>
+		<title>HECATE</title>
 
 		%sveltekit.head%
 	</head>

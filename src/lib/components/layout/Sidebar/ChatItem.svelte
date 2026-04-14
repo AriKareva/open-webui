@@ -89,6 +89,7 @@
 
 	let showShareChatModal = false;
 	let confirmEdit = false;
+	let showChatMenu = false;
 
 	let chatTitle = title;
 
@@ -382,12 +383,12 @@
 	{#if confirmEdit}
 		<div
 			id="sidebar-chat-item"
-			class=" w-full flex justify-between rounded-xl px-[11px] py-[6px] {id === $chatId ||
+			data-active={id === $chatId || confirmEdit}
+			data-selected={selected}
+			class="w-full flex justify-between rounded-xl px-[11px] py-[6px] whitespace-nowrap text-ellipsis relative {id === $chatId ||
 			confirmEdit
-				? 'bg-gray-100 dark:bg-gray-900 selected'
-				: selected
-					? 'bg-gray-100 dark:bg-gray-950 selected'
-					: 'group-hover:bg-gray-100 dark:group-hover:bg-gray-950'}  whitespace-nowrap text-ellipsis relative {generating
+				? 'active-chat'
+				: 'idle-chat'} {generating
 				? 'cursor-not-allowed'
 				: ''}"
 		>
@@ -418,12 +419,12 @@
 	{:else}
 		<a
 			id="sidebar-chat-item"
-			class=" w-full flex justify-between rounded-xl px-[11px] py-[6px] {id === $chatId ||
+			data-active={id === $chatId || confirmEdit}
+			data-selected={selected}
+			class="w-full flex justify-between rounded-xl px-[11px] pr-10 py-[6px] whitespace-nowrap text-ellipsis {id === $chatId ||
 			confirmEdit
-				? 'bg-gray-100 dark:bg-gray-900 selected'
-				: selected
-					? 'bg-gray-100 dark:bg-gray-950 selected'
-					: ' group-hover:bg-gray-100 dark:group-hover:bg-gray-950'}  whitespace-nowrap text-ellipsis"
+				? 'active-chat'
+				: 'idle-chat'}"
 			href="/c/{id}"
 			on:click={() => {
 				dispatch('select');
@@ -451,6 +452,7 @@
 			}}
 			on:focus={(e) => {}}
 			draggable="false"
+			aria-current={id === $chatId ? 'page' : null}
 		>
 			<!-- Loading spinner for active chat (left side) -->
 			{#if $activeChatIds.has(id)}
@@ -466,8 +468,8 @@
 			</div>
 
 			<!-- Time ago indicator -->
-			{#if createdAt && !mouseOver}
-				<div class="shrink-0 self-center text-[10px] text-gray-400 dark:text-gray-500 pl-2">
+			{#if createdAt && !mouseOver && !selected && id !== $chatId}
+				<div class="shrink-0 self-center text-[10px] chat-item-time pl-2">
 					{formatTimeAgo(createdAt)}
 				</div>
 			{/if}
@@ -479,13 +481,13 @@
 		id="sidebar-chat-item-menu"
 		class="
         {id === $chatId || confirmEdit
-			? 'from-gray-100 dark:from-gray-900 selected'
+			? 'visible from-transparent'
 			: selected
-				? 'from-gray-100 dark:from-gray-950 selected'
-				: 'invisible group-hover:visible from-gray-100 dark:from-gray-950'}
+				? 'visible from-transparent'
+				: 'invisible group-hover:visible from-transparent'}
             absolute {className === 'pr-2'
 			? 'right-[8px]'
-			: 'right-1'} top-[4px] py-1 pr-0.5 mr-1.5 pl-5 bg-linear-to-l from-80%
+			: 'right-1'} top-1/2 -translate-y-1/2 py-1 pr-0.5 mr-1 pl-3 bg-linear-to-l from-80%
 
               to-transparent"
 		on:mouseenter={(e) => {
@@ -541,6 +543,7 @@
 		{:else}
 			<div class="flex self-center z-10 items-end">
 				<ChatMenu
+					bind:show={showChatMenu}
 					chatId={id}
 					cloneChatHandler={() => {
 						cloneChatHandler(id);
@@ -565,7 +568,8 @@
 				>
 					<button
 						aria-label="Chat Menu"
-						class=" self-center dark:hover:text-white transition m-0"
+						aria-pressed={showChatMenu}
+						class="chat-item-menu-button self-center transition m-0"
 						on:click={() => {
 							dispatch('select');
 						}}

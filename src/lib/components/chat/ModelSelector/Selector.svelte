@@ -28,7 +28,7 @@
 	import { capitalizeFirstLetter, sanitizeResponseContent, splitStream } from '$lib/utils';
 	import { getModels } from '$lib/apis';
 
-	import ChevronDown from '$lib/components/icons/ChevronDown.svelte';
+	import ChevronRight from '$lib/components/icons/ChevronRight.svelte';
 	import Check from '$lib/components/icons/Check.svelte';
 	import Search from '$lib/components/icons/Search.svelte';
 	import Tooltip from '$lib/components/common/Tooltip.svelte';
@@ -55,7 +55,7 @@
 	}[] = [];
 
 	export let className = 'w-[32rem]';
-	export let triggerClassName = 'text-lg';
+	export let triggerClassName = '';
 
 	export let pinModelHandler: (modelId: string) => void = () => {};
 
@@ -404,37 +404,40 @@
 		}
 	}}
 >
-	<DropdownMenu.Trigger
-		class="relative w-full {($settings?.highContrastMode ?? false)
-			? ''
-			: 'outline-hidden focus:outline-hidden'}"
-		aria-label={selectedModel
-			? $i18n.t('Selected model: {{modelName}}', { modelName: selectedModel.label })
-			: placeholder}
-		id="model-selector-{id}-button"
+	<div
+		class="hecate-model-trigger-shell inline-flex max-w-full items-center"
+		on:mouseenter={async () => {
+			models.set(
+				await getModels(
+					localStorage.token,
+					$config?.features?.enable_direct_connections && ($settings?.directConnections ?? null)
+				)
+			);
+		}}
 	>
-		<div
-			class="flex w-full text-left px-0.5 bg-transparent truncate {triggerClassName} justify-between {($settings?.highContrastMode ??
-			false)
-				? 'dark:placeholder-gray-100 placeholder-gray-800'
-				: 'placeholder-gray-400'}"
-			on:mouseenter={async () => {
-				models.set(
-					await getModels(
-						localStorage.token,
-						$config?.features?.enable_direct_connections && ($settings?.directConnections ?? null)
-					)
-				);
-			}}
+		<DropdownMenu.Trigger
+			class="relative shrink-0 {($settings?.highContrastMode ?? false)
+				? ''
+				: 'outline-hidden focus:outline-hidden'}"
+			aria-label={selectedModel
+				? $i18n.t('Selected model: {{modelName}}', { modelName: selectedModel.label })
+				: placeholder}
+			aria-expanded={show}
+			id="model-selector-{id}-button"
 		>
+			<div class="hecate-model-trigger-icon {show ? 'is-open' : ''}">
+				<ChevronRight className="hecate-model-trigger-chevron size-4" strokeWidth="2.5" />
+			</div>
+		</DropdownMenu.Trigger>
+
+		<div class="hecate-model-trigger-label truncate {triggerClassName}">
 			{#if selectedModel}
 				{selectedModel.label}
 			{:else}
 				{placeholder}
 			{/if}
-			<ChevronDown className=" self-center ml-2 size-3" strokeWidth="2.5" />
 		</div>
-	</DropdownMenu.Trigger>
+	</div>
 
 	<DropdownMenu.Portal>
 		<DropdownMenu.Content
@@ -443,7 +446,7 @@
 			preventScroll={false}
 			side="bottom"
 			align={$mobile ? 'center' : 'start'}
-			sideOffset={2}
+			sideOffset={8}
 			alignOffset={-1}
 		>
 			{#snippet child({ wrapperProps, props, open })}
@@ -453,12 +456,12 @@
 							{...props}
 							class="{props.class} z-40 {$mobile
 								? `w-full`
-								: `${className}`} max-w-[calc(100vw-1rem)] justify-start rounded-2xl bg-white dark:bg-gray-850 dark:text-white shadow-lg outline-hidden"
+								: `${className}`} hecate-model-dropdown max-w-[calc(100vw-1rem)] justify-start rounded-2xl bg-white dark:bg-gray-850 dark:text-white shadow-lg outline-hidden"
 							transition:flyAndScale
 						>
 							<slot>
 								{#if searchEnabled}
-									<div class="flex items-center gap-2.5 px-4.5 pt-3.5 mb-1.5">
+									<div class="hecate-model-search flex items-center gap-2.5 px-4.5 pt-3.5 pb-3 mb-1.5">
 										<Search className="size-4" strokeWidth="2.5" />
 
 										<input
