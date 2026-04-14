@@ -631,7 +631,7 @@ def replace_env_vars(s: str) -> str:
 
 
 async def ensure_functions_from_json():
-    functions_dir = Path(__file__).parent.parent / "open_webui" / "function_configs"
+    functions_dir = Path(__file__).parent.parent.parent/ "function_configs"
     log.info(f"Function configs dir: {functions_dir}")
 
     if not functions_dir.exists():
@@ -642,7 +642,7 @@ async def ensure_functions_from_json():
         try:
             with open(json_file, "r", encoding="utf-8") as f:
                 data = json.load(f)
-
+                data = data[0]
             with get_db_context() as db:
                 existing = Functions.get_function_by_id(data["id"], db=db)
                 form = FunctionForm(

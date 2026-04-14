@@ -1,4 +1,4 @@
-{
+[{
         "id": "automatic_model_router",
         "user_id": "admin",
         "name": "automatic_model_router",
@@ -13,3 +13,4 @@
         "updated_at": 1776190216,
         "created_at": 1776187879
     }
+]
