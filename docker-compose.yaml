@@ -55,9 +55,13 @@ services:
       - 'AUDIO_STT_OPENAI_API_KEY=' # в проде убрать
       # Форматы файлов
       - 'RAG_ALLOWED_FILE_EXTENSIONS=.pdf,.txt,.md,.docx'
+
     extra_hosts:
       - host.docker.internal:host-gateway
     restart: unless-stopped
+
+  networks:
+    - webui-net
 
 volumes:
   ollama: {}

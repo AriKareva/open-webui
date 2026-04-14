@@ -1,6 +1,7 @@
 <script lang="ts">
-	import { getContext, createEventDispatcher } from 'svelte';
+	import { getContext, createEventDispatcher, onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
+	import { observeThemeLogo } from '$lib/utils/theme-logo';
 
 	const dispatch = createEventDispatcher();
 
@@ -64,11 +65,11 @@
 	}
 
 	$: models = selectedModels.map((id) => $_models.find((m) => m.id === id));
-	$: if (typeof document !== 'undefined') {
-		brandLogoSrc = document.documentElement.classList.contains('dark')
-			? '/hecate-black.svg'
-			: '/hecate-white.svg';
-	}
+	onMount(() => {
+		return observeThemeLogo((logoSrc) => {
+			brandLogoSrc = logoSrc;
+		});
+	});
 </script>
 
 <div class="hecate-placeholder m-auto w-full max-w-6xl px-2 @2xl:px-20 translate-y-6 py-24 text-center">

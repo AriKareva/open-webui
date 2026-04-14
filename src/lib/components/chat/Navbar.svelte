@@ -26,7 +26,6 @@
 
 	import ChatBubbleDotted from '../icons/ChatBubbleDotted.svelte';
 	import ChatBubbleDottedChecked from '../icons/ChatBubbleDottedChecked.svelte';
-
 	import EllipsisHorizontal from '../icons/EllipsisHorizontal.svelte';
 	import ChatCheck from '../icons/ChatCheck.svelte';
 	import Knobs from '../icons/Knobs.svelte';
@@ -120,7 +119,6 @@
 									aria-pressed={$temporaryChatEnabled}
 									on:click={async () => {
 										if (($settings?.temporaryChatByDefault ?? false) && $temporaryChatEnabled) {
-											// for proper initNewChat handling
 											await temporaryChatEnabled.set(null);
 										} else {
 											await temporaryChatEnabled.set(!$temporaryChatEnabled);
@@ -130,7 +128,6 @@
 											await goto('/');
 										}
 
-										// add 'temporary-chat=true' to the URL
 										if ($temporaryChatEnabled) {
 											window.history.replaceState(null, '', '?temporary-chat=true');
 										} else {

@@ -1,5 +1,6 @@
 <script>
 	import { getContext, onMount } from 'svelte';
+	import { observeThemeLogo } from '$lib/utils/theme-logo';
 	const i18n = getContext('i18n');
 
 	import Marquee from './common/Marquee.svelte';
@@ -8,17 +9,25 @@
 
 	export let show = true;
 	export let getStartedHandler = () => {};
+	let currentLogoSrc = '/hecate-white.svg';
 
 	function setLogoImage() {
 		const logo = document.getElementById('logo');
 
 		if (logo) {
-			logo.src = document.documentElement.classList.contains('dark')
-				? '/hecate-black.svg'
-				: '/hecate-white.svg';
+			logo.src = currentLogoSrc;
 			logo.style.filter = '';
 		}
 	}
+
+	onMount(() => {
+		return observeThemeLogo((logoSrc) => {
+			currentLogoSrc = logoSrc;
+			if (show) {
+				setLogoImage();
+			}
+		});
+	});
 
 	$: if (show) {
 		setLogoImage();
@@ -33,7 +42,7 @@
 					<img
 						id="logo"
 						crossorigin="anonymous"
-						src="/hecate-white.svg"
+						src={currentLogoSrc}
 						class=" w-6 rounded-full"
 						alt="logo"
 					/>
