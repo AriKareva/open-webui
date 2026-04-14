@@ -6,8 +6,6 @@ services:
     pull_policy: always
     tty: true
     restart: unless-stopped
-    networks:
-      - internal
     image: ollama/ollama:${OLLAMA_DOCKER_TAG-latest}
 
   open-webui:
@@ -18,7 +16,6 @@ services:
     container_name: open-webui
     volumes:
       - open-webui:/app/backend/data
-      - ./function_configs:/app/backend/open-webui/function_configs
     depends_on:
       - ollama
     ports:
@@ -32,13 +29,13 @@ services:
       - 'ENABLE_SIGNUP=True'
       - 'RAG_EMBEDDING_ENGINE=openai'
       - 'RAG_EMBEDDING_MODEL=bge-m3'
-      - 'OPENAI_API_BASE_URLS=' # в проде убрать
-      - 'OPENAI_API_KEYS=' # в проде убрать
+      - 'OPENAI_API_BASE_URLS=https://api.gpt.mws.ru/v1' # в проде убрать
+      - 'OPENAI_API_KEYS=sk-ewgiaPC3A6pPDYHwR8siVA' # в проде убрать
       - 'ENV=dev' # в проде убрать
       # Включить веб-поиск
       - 'ENABLE_RAG_WEB_SEARCH=True'
       # Адрес SearXNG (важно: шаблон <query> обязателен!)
-      - 'SEARXNG_QUERY_URL=http://searxng:8080/search?q=<query>' 
+      - 'SEARXNG_QUERY_URL=http://searxng:8080/search?q=<query>' # - 'SEARXNG_QUERY_URL=http://host.docker.internal:8081/search?q=<query>'
       # Количество результатов
       - 'RAG_WEB_SEARCH_RESULT_COUNT=5'
       # Язык поиска
@@ -48,6 +45,9 @@ services:
     extra_hosts:
       - host.docker.internal:host-gateway
     restart: unless-stopped
+
+  networks:
+    - webui-net
 
 volumes:
   ollama: {}
