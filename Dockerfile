@@ -31,6 +31,7 @@ ARG BUILD_HASH
 
 # Set Node.js options (heap limit Allocation failed - JavaScript heap out of memory)
 ENV NODE_OPTIONS="--max-old-space-size=4096"
+ENV CYPRESS_INSTALL_BINARY=0
 
 WORKDIR /app
 
