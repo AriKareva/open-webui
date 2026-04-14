@@ -446,7 +446,7 @@
 			preventScroll={false}
 			side="bottom"
 			align={$mobile ? 'center' : 'start'}
-			sideOffset={4}
+			sideOffset={8}
 			alignOffset={-1}
 		>
 			{#snippet child({ wrapperProps, props, open })}

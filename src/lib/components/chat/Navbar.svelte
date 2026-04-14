@@ -28,7 +28,6 @@
 	import ChatBubbleDottedChecked from '../icons/ChatBubbleDottedChecked.svelte';
 
 	import EllipsisHorizontal from '../icons/EllipsisHorizontal.svelte';
-	import ChatPlus from '../icons/ChatPlus.svelte';
 	import ChatCheck from '../icons/ChatCheck.svelte';
 	import Knobs from '../icons/Knobs.svelte';
 	import { WEBUI_API_BASE_URL } from '$lib/constants';
@@ -164,24 +163,6 @@
 								</button>
 							</Tooltip>
 						{/if}
-					{/if}
-
-					{#if $mobile && !$temporaryChatEnabled && chat && chat.id}
-						<Tooltip content={$i18n.t('New Chat')}>
-							<button
-								class=" flex {$showSidebar
-									? 'md:hidden'
-									: ''} cursor-pointer px-2 py-2 rounded-xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-850 transition"
-								on:click={() => {
-									initNewChat();
-								}}
-								aria-label="New Chat"
-							>
-								<div class=" m-auto self-center">
-									<ChatPlus className=" size-4.5" strokeWidth="1.5" />
-								</div>
-							</button>
-						</Tooltip>
 					{/if}
 
 					{#if shareEnabled && chat && (chat.id || $temporaryChatEnabled)}

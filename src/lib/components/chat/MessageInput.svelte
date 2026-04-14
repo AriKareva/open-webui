@@ -1564,76 +1564,72 @@
 
 							<div class=" flex justify-between mt-0.5 mb-2.5 mx-0.5 max-w-full" dir="ltr">
 								<div class="ml-1 self-end flex items-center flex-1 max-w-[80%]">
-									{#if $mobile}
-										<InputMenu
-											bind:show={showInputMenu}
-											bind:files
-											selectedModels={atSelectedModel ? [atSelectedModel.id] : selectedModels}
-											{fileUploadCapableModels}
-											{screenCaptureHandler}
-											{inputFilesHandler}
-											uploadFilesHandler={() => {
-												filesInputElement.click();
-											}}
-											uploadGoogleDriveHandler={async () => {
-												try {
-													const fileData = await createPicker();
-													if (fileData) {
-														const file = new File([fileData.blob], fileData.name, {
-															type: fileData.blob.type
-														});
-														await uploadFileHandler(file);
-													} else {
-														console.log('No file was selected from Google Drive');
-													}
-												} catch (error) {
-													console.error('Google Drive Error:', error);
-													toast.error(
-														$i18n.t('Error accessing Google Drive: {{error}}', {
-															error: error.message
-														})
-													);
+									<InputMenu
+										bind:show={showInputMenu}
+										bind:files
+										selectedModels={atSelectedModel ? [atSelectedModel.id] : selectedModels}
+										{fileUploadCapableModels}
+										{screenCaptureHandler}
+										{inputFilesHandler}
+										uploadFilesHandler={() => {
+											filesInputElement.click();
+										}}
+										uploadGoogleDriveHandler={async () => {
+											try {
+												const fileData = await createPicker();
+												if (fileData) {
+													const file = new File([fileData.blob], fileData.name, {
+														type: fileData.blob.type
+													});
+													await uploadFileHandler(file);
+												} else {
+													console.log('No file was selected from Google Drive');
 												}
-											}}
-											uploadOneDriveHandler={async (authorityType) => {
-												try {
-													const fileData = await pickAndDownloadFile(authorityType);
-													if (fileData) {
-														const file = new File([fileData.blob], fileData.name, {
-															type: fileData.blob.type || 'application/octet-stream'
-														});
-														await uploadFileHandler(file);
-													} else {
-														console.log('No file was selected from OneDrive');
-													}
-												} catch (error) {
-													console.error('OneDrive Error:', error);
+											} catch (error) {
+												console.error('Google Drive Error:', error);
+												toast.error(
+													$i18n.t('Error accessing Google Drive: {{error}}', {
+														error: error.message
+													})
+												);
+											}
+										}}
+										uploadOneDriveHandler={async (authorityType) => {
+											try {
+												const fileData = await pickAndDownloadFile(authorityType);
+												if (fileData) {
+													const file = new File([fileData.blob], fileData.name, {
+														type: fileData.blob.type || 'application/octet-stream'
+													});
+													await uploadFileHandler(file);
+												} else {
+													console.log('No file was selected from OneDrive');
 												}
-											}}
-											{onUpload}
-											onClose={async () => {
-												await tick();
+											} catch (error) {
+												console.error('OneDrive Error:', error);
+											}
+										}}
+										{onUpload}
+										onClose={async () => {
+											await tick();
 
-												const chatInput = document.getElementById('chat-input');
-												chatInput?.focus();
-											}}
+											const chatInput = document.getElementById('chat-input');
+											chatInput?.focus();
+										}}
+									>
+										<div
+											id="input-menu-button"
+											aria-pressed={showInputMenu}
+											class="hecate-round-button bg-transparent hover:bg-gray-100 text-gray-700 dark:text-white dark:hover:bg-gray-800 rounded-full size-8 flex justify-center items-center outline-hidden focus:outline-hidden"
 										>
-											<div
-												id="input-menu-button"
-												aria-pressed={showInputMenu}
-												class="hecate-round-button bg-transparent hover:bg-gray-100 text-gray-700 dark:text-white dark:hover:bg-gray-800 rounded-full size-8 flex justify-center items-center outline-hidden focus:outline-hidden"
-											>
-												<PlusAlt className="size-5.5" />
-											</div>
-										</InputMenu>
-									{/if}
+											<PlusAlt className="size-5.5" />
+										</div>
+									</InputMenu>
 
 									{#if showWebSearchButton || showImageGenerationButton || showCodeInterpreterButton || showToolsButton || (toggleFilters && toggleFilters.length > 0)}
-										{#if $mobile}
-											<div
-												class="flex self-center w-[1px] h-4 mx-1 bg-gray-200/50 dark:bg-gray-800/50"
-											/>
-										{/if}
+										<div
+											class="flex self-center w-[1px] h-4 mx-1 bg-gray-200/50 dark:bg-gray-800/50"
+										/>
 
 										<IntegrationsMenu
 											bind:show={showIntegrationsMenu}
