@@ -610,13 +610,33 @@ import json
 from pathlib import Path
 from open_webui.models.functions import Functions, FunctionForm
 
+import os
+import json
+import re
+import requests
+import sys
+from dotenv import load_dotenv
+
+
+def replace_env_vars(s: str) -> str:
+    """
+    Заменяет в строке s переменные окружениия на значения из .env
+    Если переменная не найдена, подстановка остаётся без изменений.
+    """
+    load_dotenv()
+    MWS_API_BASE=os.getenv('MWS_API_BASE')
+    MWS_API_TOKEN=os.getenv('MWS_API_TOKEN')
+    res = s.replace('MWS_API_TOKEN', MWS_API_TOKEN).replace('MWS_API_BASE', MWS_API_BASE)
+    return res
+
 
 async def ensure_functions_from_json():
-    functions_dir = Path(__file__).parent / "function_configs"
-    log.info(f"\nFunction configs dir: {functions_dir}\n")
+    functions_dir = Path(__file__).parent.parent / "open_webui" / "function_configs"
+    log.info(f"Function configs dir: {functions_dir}")
 
-    # if not functions_dir.exists():
-    #     return
+    if not functions_dir.exists():
+        log.warning(f"Directory {functions_dir} does not exist, skipping function import.")
+        return
 
     for json_file in functions_dir.glob("*.json"):
         try:
@@ -628,8 +648,8 @@ async def ensure_functions_from_json():
                 form = FunctionForm(
                     id=data["id"],
                     name=data["name"],
-                    meta=data["meta"],
-                    content=data["content"]
+                    meta=data.get("meta", {}),
+                    content=replace_env_vars(data["content"]),
                     # valves=data.get("valves", {}),
                     # is_active=data.get("is_active", True),
                     # is_global=data.get("is_global", True),
@@ -638,7 +658,13 @@ async def ensure_functions_from_json():
                     Functions.update_function_by_id(data["id"], form, db=db)
                     log.info(f"Updated function {data['id']} from {json_file.name}")
                 else:
-                    Functions.insert_new_function(user_id='admin', form_data=form, type=data["type"], db=db)
+                    # Вставка новой функции; user_id='admin' — системный администратор
+                    Functions.insert_new_function(
+                        user_id='admin',
+                        form_data=form,
+                        type=data.get("type", "pipe"),
+                        db=db
+                    )
                     log.info(f"Inserted function {data['id']} from {json_file.name}")
         except Exception as e:
             log.error(f"Failed to process function file {json_file}: {e}")
