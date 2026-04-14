@@ -62,7 +62,7 @@ services:
       - host.docker.internal:host-gateway
     restart: unless-stopped
     networks:
-      - webui-net
+      - internal
 
 volumes:
   ollama: {}
