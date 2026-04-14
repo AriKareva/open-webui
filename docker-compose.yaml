@@ -15,6 +15,8 @@ services:
       context: .
       dockerfile: Dockerfile
     image: ghcr.io/open-webui/open-webui:${WEBUI_DOCKER_TAG-main}
+    env_file:
+      - .env
     container_name: open-webui
     volumes:
       - open-webui:/app/backend/data
@@ -32,8 +34,8 @@ services:
       - 'ENABLE_SIGNUP=True'
       - 'RAG_EMBEDDING_ENGINE=openai'
       - 'RAG_EMBEDDING_MODEL=bge-m3'
-      - 'OPENAI_API_BASE_URLS=' # в проде убрать
-      - 'OPENAI_API_KEYS=' # в проде убрать
+      - 'OPENAI_API_BASE_URLS=${MWS_API_BASE}' # в проде убрать
+      - 'OPENAI_API_KEYS=${MWS_API_TOKEN}' # в проде убрать
       # - 'ENV=dev' # в проде убрать
       # Включить веб-поиск
       - 'ENABLE_RAG_WEB_SEARCH=True'
@@ -51,8 +53,8 @@ services:
       # Переменные окружения для аудио
       - 'AUDIO_STT_ENGINE=openai'
       - 'AUDIO_STT_MODEL=wisper-turbo-local'
-      - 'AUDIO_STT_OPENAI_API_BASE_URL=' # в проде убрать
-      - 'AUDIO_STT_OPENAI_API_KEY=' # в проде убрать
+      - 'AUDIO_STT_OPENAI_API_BASE_URL=${MWS_API_BASE}' # в проде убрать
+      - 'AUDIO_STT_OPENAI_API_KEY=${MWS_API_TOKEN}' # в проде убрать
       # Форматы файлов
       - 'RAG_ALLOWED_FILE_EXTENSIONS=.pdf,.txt,.md,.docx'
 
