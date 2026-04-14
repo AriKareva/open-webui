@@ -642,7 +642,8 @@ async def ensure_functions_from_json():
         try:
             with open(json_file, "r", encoding="utf-8") as f:
                 data = json.load(f)
-                data = data[0]
+                if isinstance(data, list):
+                    data = data[0]
             with get_db_context() as db:
                 existing = Functions.get_function_by_id(data["id"], db=db)
                 form = FunctionForm(
