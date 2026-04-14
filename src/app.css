@@ -285,36 +285,45 @@ body {
 	}
 
 	.hecate-app .hecate-model-trigger-shell {
-		gap: 0.75rem;
-		min-height: 3rem;
-		padding: 0.35rem 1rem 0.35rem 0.35rem;
-		border: 1px solid rgba(122, 122, 133, 0.18);
+		gap: 0.65rem;
+		min-height: 2.5rem;
+		padding: 0.24rem 0.95rem 0.24rem 0.24rem;
+		border: 1px solid rgba(199, 199, 206, 0.6);
 		border-radius: 9999px;
-		background: rgba(255, 255, 255, 0.9);
-		box-shadow: 0 10px 30px rgba(42, 42, 46, 0.08);
-		backdrop-filter: blur(16px);
+		background: rgba(255, 255, 255, 0.98);
+		box-shadow: none;
+		backdrop-filter: blur(10px);
 		width: fit-content;
 		max-width: 100%;
+		outline: none;
 	}
 
 	.hecate-app [id^='model-selector-'][id$='-button'] {
 		padding: 0;
 		border: none;
 		background: transparent;
-		box-shadow: none;
-		outline: none;
+		box-shadow: none !important;
+		outline: none !important;
+		appearance: none;
+	}
+
+	.hecate-app [id^='model-selector-'][id$='-button']:focus,
+	.hecate-app [id^='model-selector-'][id$='-button']:focus-visible,
+	.hecate-app .hecate-model-trigger-shell:focus-within {
+		box-shadow: none !important;
+		outline: none !important;
 	}
 
 	.hecate-app .hecate-model-trigger-shell:hover {
-		background: rgba(255, 255, 255, 0.9);
+		background: rgba(255, 255, 255, 0.98);
 	}
 
 	.hecate-app .hecate-model-trigger-icon {
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		width: 2.15rem;
-		height: 2.15rem;
+		width: 2rem;
+		height: 2rem;
 		border-radius: 9999px;
 		background: transparent;
 		color: var(--softblack);
@@ -342,23 +351,23 @@ body {
 	}
 
 	.hecate-app .hecate-model-trigger-icon.is-open .hecate-model-trigger-chevron {
-		transform: rotate(180deg);
+		transform: rotate(90deg);
 	}
 
 	.hecate-app .hecate-model-trigger-label {
 		line-height: 1;
-		font-size: 0.9rem;
+		font-size: 0.82rem;
 		font-weight: 500;
 		color: var(--gray700);
 		padding-right: 0.1rem;
-		max-width: min(16rem, calc(100vw - 9rem));
+		max-width: min(14rem, calc(100vw - 9rem));
 	}
 
 	.hecate-app .hecate-model-dropdown {
 		border-radius: 1.35rem !important;
 		background: rgba(255, 255, 255, 0.96) !important;
-		border: 1px solid rgba(122, 122, 133, 0.16);
-		box-shadow: 0 18px 42px rgba(42, 42, 46, 0.12);
+		border: 1px solid rgba(199, 199, 206, 0.72);
+		box-shadow: 0 10px 30px rgba(42, 42, 46, 0.08);
 	}
 
 	.hecate-app .hecate-model-search {

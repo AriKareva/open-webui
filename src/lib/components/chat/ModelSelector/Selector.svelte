@@ -28,7 +28,7 @@
 	import { capitalizeFirstLetter, sanitizeResponseContent, splitStream } from '$lib/utils';
 	import { getModels } from '$lib/apis';
 
-	import ChevronDown from '$lib/components/icons/ChevronDown.svelte';
+	import ChevronRight from '$lib/components/icons/ChevronRight.svelte';
 	import Check from '$lib/components/icons/Check.svelte';
 	import Search from '$lib/components/icons/Search.svelte';
 	import Tooltip from '$lib/components/common/Tooltip.svelte';
@@ -55,7 +55,7 @@
 	}[] = [];
 
 	export let className = 'w-[32rem]';
-	export let triggerClassName = 'text-lg';
+	export let triggerClassName = '';
 
 	export let pinModelHandler: (modelId: string) => void = () => {};
 
@@ -426,7 +426,7 @@
 			id="model-selector-{id}-button"
 		>
 			<div class="hecate-model-trigger-icon {show ? 'is-open' : ''}">
-				<ChevronDown className="hecate-model-trigger-chevron size-4" strokeWidth="2.5" />
+				<ChevronRight className="hecate-model-trigger-chevron size-4" strokeWidth="2.5" />
 			</div>
 		</DropdownMenu.Trigger>
 
@@ -446,7 +446,7 @@
 			preventScroll={false}
 			side="bottom"
 			align={$mobile ? 'center' : 'start'}
-			sideOffset={2}
+			sideOffset={4}
 			alignOffset={-1}
 		>
 			{#snippet child({ wrapperProps, props, open })}
