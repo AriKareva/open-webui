@@ -14,8 +14,8 @@
 
 		if (logo) {
 			logo.src = document.documentElement.classList.contains('dark')
-				? '/hecate-black.svg'
-				: '/hecate-white.svg';
+				? '/hecate-white.svg'
+				: '/hecate-black.svg';
 			logo.style.filter = '';
 		}
 	}
@@ -33,7 +33,7 @@
 					<img
 						id="logo"
 						crossorigin="anonymous"
-						src="/hecate-white.svg"
+						src="/hecate-black.svg"
 						class=" w-6 rounded-full"
 						alt="logo"
 					/>

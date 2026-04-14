@@ -2,21 +2,21 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/hecate-white.svg" crossorigin="use-credentials" />
+		<link rel="icon" type="image/svg+xml" href="/hecate-black.svg" crossorigin="use-credentials" />
 		<link
 			rel="icon"
 			type="image/svg+xml"
-			href="/hecate-white.svg"
+			href="/hecate-black.svg"
 			sizes="96x96"
 			crossorigin="use-credentials"
 		/>
 		<link
 			rel="icon"
 			type="image/svg+xml"
-			href="/hecate-white.svg"
+			href="/hecate-black.svg"
 			crossorigin="use-credentials"
 		/>
-		<link rel="shortcut icon" href="/hecate-white.svg" crossorigin="use-credentials" />
+		<link rel="shortcut icon" href="/hecate-black.svg" crossorigin="use-credentials" />
 		<link
 			rel="apple-touch-icon"
 			sizes="180x180"
@@ -48,7 +48,7 @@
 					document.querySelectorAll('link[rel="icon"], link[rel="shortcut icon"]')
 				);
 				const prefersDarkTheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
-				const getThemeLogo = (isDarkMode) => (isDarkMode ? '/hecate-black.svg' : '/hecate-white.svg');
+				const getThemeLogo = (isDarkMode) => (isDarkMode ? '/hecate-white.svg' : '/hecate-black.svg');
 
 				if (!localStorage?.theme) {
 					localStorage.theme = 'system';
