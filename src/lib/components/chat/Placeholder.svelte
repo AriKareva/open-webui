@@ -57,7 +57,7 @@
 
 	let models = [];
 	let selectedModelIdx = 0;
-	let brandLogoSrc = '/hecate-black.svg';
+	let brandLogoSrc = '/hecate-white.svg';
 
 	$: if (selectedModels.length > 0) {
 		selectedModelIdx = models.length - 1;
@@ -66,8 +66,8 @@
 	$: models = selectedModels.map((id) => $_models.find((m) => m.id === id));
 	$: if (typeof document !== 'undefined') {
 		brandLogoSrc = document.documentElement.classList.contains('dark')
-			? '/hecate-white.svg'
-			: '/hecate-black.svg';
+			? '/hecate-black.svg'
+			: '/hecate-white.svg';
 	}
 </script>
 

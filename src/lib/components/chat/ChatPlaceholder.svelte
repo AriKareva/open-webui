@@ -22,7 +22,7 @@
 
 	let mounted = false;
 	let selectedModelIdx = 0;
-	let brandLogoSrc = '/hecate-black.svg';
+	let brandLogoSrc = '/hecate-white.svg';
 
 	$: if (modelIds.length > 0) {
 		selectedModelIdx = models.length - 1;
@@ -32,8 +32,8 @@
 
 	onMount(() => {
 		brandLogoSrc = document.documentElement.classList.contains('dark')
-			? '/hecate-white.svg'
-			: '/hecate-black.svg';
+			? '/hecate-black.svg'
+			: '/hecate-white.svg';
 		mounted = true;
 	});
 </script>

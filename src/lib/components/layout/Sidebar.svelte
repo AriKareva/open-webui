@@ -85,7 +85,7 @@
 	let showCreateFolderModal = false;
 
 	let pinnedModels = [];
-	let brandLogoSrc = '/hecate-black.svg';
+	let brandLogoSrc = '/hecate-white.svg';
 
 	let showPinnedModels = false;
 	let showChannels = false;
@@ -423,8 +423,8 @@
 
 	onMount(() => {
 		brandLogoSrc = document.documentElement.classList.contains('dark')
-			? '/hecate-white.svg'
-			: '/hecate-black.svg';
+			? '/hecate-black.svg'
+			: '/hecate-white.svg';
 
 		try {
 			const width = Number(localStorage.getItem('sidebarWidth'));
