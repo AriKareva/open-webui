@@ -29,13 +29,13 @@ services:
       - 'ENABLE_SIGNUP=True'
       - 'RAG_EMBEDDING_ENGINE=openai'
       - 'RAG_EMBEDDING_MODEL=bge-m3'
-      - 'OPENAI_API_BASE_URLS=https://api.gpt.mws.ru/v1' # в проде убрать
-      - 'OPENAI_API_KEYS=sk-ewgiaPC3A6pPDYHwR8siVA' # в проде убрать
+      - 'OPENAI_API_BASE_URLS=' # в проде убрать
+      - 'OPENAI_API_KEYS=' # в проде убрать
       - 'ENV=dev' # в проде убрать
       # Включить веб-поиск
       - 'ENABLE_RAG_WEB_SEARCH=True'
       # Адрес SearXNG (важно: шаблон <query> обязателен!)
-      - 'SEARXNG_QUERY_URL=http://searxng:8080/search?q=<query>' # - 'SEARXNG_QUERY_URL=http://host.docker.internal:8081/search?q=<query>'
+      - 'SEARXNG_QUERY_URL=http://searxng:8080/search?q=<query>' #
       # Количество результатов
       - 'RAG_WEB_SEARCH_RESULT_COUNT=5'
       # Язык поиска
