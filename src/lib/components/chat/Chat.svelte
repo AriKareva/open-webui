@@ -1846,19 +1846,6 @@
 		const messages = createMessagesList(history, history.currentId);
 		const _files = structuredClone(files);
 
-		chatFiles.push(
-			..._files.filter(
-				(item) =>
-					['doc', 'text', 'note', 'chat', 'folder', 'collection'].includes(item.type) ||
-					(item.type === 'file' && !(item?.content_type ?? '').startsWith('image/'))
-			)
-		);
-		chatFiles = chatFiles.filter(
-			// Remove duplicates
-			(item, index, array) =>
-				array.findIndex((i) => JSON.stringify(i) === JSON.stringify(item)) === index
-		);
-
 		files = [];
 		messageInput?.setText('');
 
@@ -2075,25 +2062,13 @@
 		const responseMessage = _history.messages[responseMessageId];
 		const userMessage = _history.messages[responseMessage.parentId];
 
-		const chatMessageFiles = _messages
-			.filter((message) => message.files)
-			.flatMap((message) => message.files);
-
-		// Filter chatFiles to only include files that are in the chatMessageFiles
-		chatFiles = chatFiles.filter((item) => {
-			const fileExists = chatMessageFiles.some((messageFile) => messageFile.id === item.id);
-			return fileExists;
-		});
-
-		let files = structuredClone(chatFiles);
-		files.push(
-			...(userMessage?.files ?? []).filter(
+		let files = structuredClone(
+			(userMessage?.files ?? []).filter(
 				(item) =>
 					['doc', 'text', 'note', 'chat', 'collection'].includes(item.type) ||
 					(item.type === 'file' && !(item?.content_type ?? '').startsWith('image/'))
 			)
 		);
-		// Remove duplicates
 		files = files.filter(
 			(item, index, array) =>
 				array.findIndex((i) => JSON.stringify(i) === JSON.stringify(item)) === index

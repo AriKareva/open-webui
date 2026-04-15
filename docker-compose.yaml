@@ -53,10 +53,10 @@ services:
       - DEFAULT_USER_ROLE=user
       - ENABLE_PERSISTENT_CONFIG=False
       - AUDIO_STT_ENGINE=openai
-      - AUDIO_STT_MODEL=wisper-turbo-local
+      - AUDIO_STT_MODEL=whisper-turbo-local
       - AUDIO_STT_OPENAI_API_BASE_URL=${MWS_API_BASE}
       - AUDIO_STT_OPENAI_API_KEY=${MWS_API_TOKEN}
-      - RAG_ALLOWED_FILE_EXTENSIONS=.pdf,.txt,.md,.docx
+      - RAG_ALLOWED_FILE_EXTENSIONS=pdf,txt,md,docx,ogg,mp3
       - WEB_SEARCH_TRUST_ENV=True
     extra_hosts:
       - host.docker.internal:host-gateway
